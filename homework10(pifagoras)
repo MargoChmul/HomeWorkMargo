@@ -1,0 +1,25 @@
+def Pythagoras(a, b, c):
+    l = [a,b,c]
+    l.sort()
+    a = l[0]
+    b=l[1]
+    c=l[2]
+    return a**2 + b**2 == c**2
+
+import unittest
+
+class TestFromListSource(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.questions = [[3, 4, 5], [9, 12, 15],
+                          [16, 20, 12], [8,17,15], [24, 32, 40]]
+        
+        self.answers = [True, True, True, True, True]
+
+    def test_from_lists(self):
+        for i in range(0, len(self.questions)):
+            with self.subTest():
+                self.assertEqual(Pythagoras(self.questions[i][0], self.questions[i][1], self.questions[i][2]), self.answers[i])
+
+
+unittest.main(exit=False)

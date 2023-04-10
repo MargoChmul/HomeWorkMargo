@@ -1,0 +1,44 @@
+from itertools import groupby
+from pprint import pprint
+from mysql.connector import cursor
+import json
+import mysql.connector
+
+
+mydb = mysql.connector.connect(
+    host='localhost', user='user2064', password='!QA2ws3ed')
+cursor = mydb.cursor()
+query = "select id, number, ticket_line_id from db2064.ticket_line_numbers order by ticket_line_id; ) ;"
+cursor.execute(query)
+result = cursor.fetchall()
+
+ticket_number = []
+numbers = []
+ticket_line_id = []
+i=0
+for x in result:
+    for y in x:
+        ticket_number.append(x[0])
+        ticket_line_id.append(x[2])
+        if (x[2]) == (ticket_line_id[-1]):
+            numbers.append((x[1]))
+        break
+    
+ticket_line = []
+num = []
+numbers2=[]
+for x in ticket_line_id:
+    for y in numbers:
+        if x not in ticket_line: 
+            ticket_line.append(x)   
+        if x == (ticket_line[-1]) and (len(num))<5:
+                num.append(y)
+        if (len(num))==5:
+            numbers2.append(num)
+            num = []
+
+print(ticket_line)
+print(numbers2)      
+
+#cursor.close()
+#mydb.close()
